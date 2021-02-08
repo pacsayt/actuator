@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Endpoint(id = "features") // /actuator/features
 public class FeaturesEndpoint
 {
-  private static Logger LOGGER = LoggerFactory.getLogger( "spring.boot.actuator.FeaturesEndpoint");
+  private static final Logger LOGGER = LoggerFactory.getLogger( FeaturesEndpoint.class);
 
   private Map<String, Feature> features = new ConcurrentHashMap<>();
 
@@ -21,7 +21,7 @@ public class FeaturesEndpoint
   public Map<String, Feature> features()
   {
     Feature newFeature = new Feature( true, "Feature_" + System.currentTimeMillis());
-    LOGGER.info( "features() " + newFeature + " ++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    LOGGER.info( "features() " + newFeature + " ++++++++++");
 
     features.putIfAbsent( newFeature.getFeatureName(), newFeature);
 
@@ -32,21 +32,21 @@ public class FeaturesEndpoint
   @ReadOperation
   public Feature feature(@Selector String name)
   {
-    LOGGER.info( "feature() ++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    LOGGER.info( "feature() ++++++++++");
     return features.get(name);
   }
 
   @WriteOperation
   public void configureFeature(@Selector String name, Feature feature)
   {
-    LOGGER.info( "configureFeature() ++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    LOGGER.info( "configureFeature() ++++++++++");
     features.put(name, feature);
   }
 
   @DeleteOperation
   public void deleteFeature(@Selector String name)
   {
-    LOGGER.info( "deleteFeature() ++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    LOGGER.info( "deleteFeature() ++++++++++");
     features.remove(name);
   }
 

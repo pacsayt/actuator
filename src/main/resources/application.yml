@@ -16,9 +16,9 @@ management:
     port: 9001
     address: 127.0.0.1
   endpoints:
-    web:
-      exposure:
-        include: "*"     # E nelkul 90% nem muxik (the only two available by default are /health and /info.) !!!
+    web:                         # Leiras, mellik van defaultbol engedelyezve
+      exposure:                  # https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html
+        include: "*" # E nelkul 90% nem muxik (the only two available by default are /health and /info.) !!!
       exclude: loggers # "Do NOT expose this one"
 
 # https://www.baeldung.com/spring-boot-shutdown
