@@ -1,4 +1,4 @@
-package com.sb.actuator;
+package spring.boot.actuator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -9,6 +9,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -50,12 +51,21 @@ public class TestEndpointTest
   @Test
   public void testTestEndpointReturnValueAndCodeMvc() throws Exception
   {
-//    mockMvc.perform( get( "http://localhost:" + 9000 + "/test"). this works as well ...
-//                     contentType( MediaType.APPLICATION_JSON)).
-//                     andExpect( status().isOk());
     mockMvc.perform( get( "/test").
             contentType( MediaType.APPLICATION_JSON)).
-            andExpect( status().isOk());
+            andExpect( status().isOk()). // pt++ : should I need the value returned : andReturn().
+            andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( "T_E_S_T", String.class));
+  }
 
+  @Test
+  public void testTestEndpointReturnObjectAndCodeMvc() throws Exception
+  {
+    ObjectReturnedByEndpoint objectReturnedByEndpoint = new ObjectReturnedByEndpoint("T_E_S_T");
+
+    mockMvc.perform( get( "/testobject").
+                     contentType( MediaType.APPLICATION_JSON)).
+            andExpect( status().isOk()).
+            andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( objectReturnedByEndpoint,
+                                                                                              ObjectReturnedByEndpoint.class));
   }
 }

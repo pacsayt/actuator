@@ -1,21 +1,22 @@
 package spring.boot.actuator;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * http://localhost:8081/proba?name=nev
+ * http://localhost:9000/proba?name=nev
  */
 
-@RestController()
-@RequestMapping( "/")
+@RestController
 public class Kontroller
 {
-  @GetMapping( "/proba")
-  public String getProba( @RequestParam( "name") String name)
+  @GetMapping( value = "/proba", produces = "application/json")
+  public String getProba( @RequestParam( "name") String name) throws JsonProcessingException
   {
-    return "XXXXX : name=" + name;
+    return new ObjectMapper().writeValueAsString( "AAAAAAAAAAAAAAAA");
   }
 }

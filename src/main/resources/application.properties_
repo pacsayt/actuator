@@ -4,7 +4,7 @@
 # https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
 server.port=8081
 
-spring.application.name=Bootstrap Spring Boot actuator proba
+spring.application.name=actuatorproba
 
 # logging.config Location of the logging configuration file. For instance, `classpath:logback.xml` for Logback.
 logging.level.baeldung.sprgbtbsrtp=trace
